@@ -1,0 +1,41 @@
+name: Build MOONSHOT
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            name: windows
+            flags: ""
+          - os: macos-latest
+            name: macos
+            flags: "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release "${{ matrix.flags }}"
+
+      - name: Build
+        run: cmake --build build --config Release --parallel 4
+
+      - name: Collect plugins
+        shell: bash
+        run: |
+          mkdir -p out
+          find build -type d -name "MOONSHOT.vst3" -exec cp -R {} out/ \;
+          find build -type d -name "MOONSHOT.component" -exec cp -R {} out/ \; || true
+          ls -R out | head -40
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MOONSHOT-${{ matrix.name }}
+          path: out
