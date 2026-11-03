@@ -30,12 +30,53 @@ jobs:
       - name: Collect plugins
         shell: bash
         run: |
-          mkdir -p out
+          mkdir -p out dist
           find build -type d -name "MOONSHOT.vst3" -exec cp -R {} out/ \;
           find build -type d -name "MOONSHOT.component" -exec cp -R {} out/ \; || true
           ls -R out | head -40
+
+      # Clean, standard zips for the Releases page (the macOS ones keep Apple metadata with ditto)
+      - name: Zip (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: Compress-Archive -Path out/MOONSHOT.vst3 -DestinationPath dist/MOONSHOT-Windows-VST3.zip
+
+      - name: Zip (macOS)
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          ditto -c -k --keepParent out/MOONSHOT.vst3 dist/MOONSHOT-macOS-VST3.zip
+          ditto -c -k --keepParent out/MOONSHOT.component dist/MOONSHOT-macOS-AU.zip
 
       - uses: actions/upload-artifact@v4
         with:
           name: MOONSHOT-${{ matrix.name }}
           path: out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pkg-${{ matrix.name }}
+          path: dist
+
+  release:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: pkg-*
+          merge-multiple: true
+          path: dist
+
+      - name: Publish the "latest" release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ls -la dist
+          gh release delete latest --cleanup-tag -y --repo "$GITHUB_REPOSITORY" || true
+          gh release create latest dist/*.zip --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --title "MOONSHOT - dernier build" --prerelease \
+            --notes "Windows : MOONSHOT-Windows-VST3.zip -> dossier VST3. Mac : MOONSHOT-macOS-VST3.zip et MOONSHOT-macOS-AU.zip. Les plugins ne sont pas signes : voir le README (xattr) pour macOS."
