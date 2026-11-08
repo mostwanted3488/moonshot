@@ -73,7 +73,7 @@ int main()
     const int N = 96000;
 
     std::printf ("--- transfer curves ---\n");
-    CHECK (std::abs (buildToDriveDb (0.f)) < 1e-6f && std::abs (buildToDriveDb (1.f) - 40.f) < 1e-4f, "build 0%% = 0 dB, 100%% = +40 dB drive");
+    CHECK (std::abs (buildToDriveDb (0.f)) < 1e-6f && std::abs (buildToDriveDb (1.f) - 20.f) < 1e-4f, "build 0%% = 0 dB, 100%% = +20 dB drive");
     CHECK (hardClip (0.7f, C) == 0.7f && hardClip (3.f, C) == C && hardClip (-3.f, C) == -C, "hard: transparent below ceiling, flat above");
     {   const float T = kneeFromBuild (0.6f, C);
         CHECK (softClip (0.5f * T, T, C) == 0.5f * T, "soft: linear below the knee");

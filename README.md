@@ -4,7 +4,7 @@ Un seul knob **BUILD** pousse le signal dans un clipper ; à 100 % la planète e
 
 | Contrôle | Rôle |
 |---|---|
-| **BUILD** (lame de scie, glisser haut/bas, double-clic = 0 %) | Drive de 0 à +40 dB. Le plafond reste à **-0,3 dBFS**. |
+| **BUILD** (lame de scie, glisser haut/bas, double-clic = 0 %) | Drive de 0 à +20 dB. Le plafond reste à **-0,3 dBFS**. |
 | **MIX** (petite lame, double-clic = 100 %) | Dosage son sec / son clippé. Le sec est recalé sur la latence. |
 | **HARD / SOFT** (stickers) | Mode de clipping. Changement sans clic (fondu de 15 ms). |
 
@@ -17,13 +17,13 @@ Un seul knob **BUILD** pousse le signal dans un clipper ; à 100 % la planète e
 ### Volumes mesurés (bruit à -18 dB RMS, MIX 100 %)
 | BUILD | RMS HARD | RMS SOFT | Crête |
 |---|---|---|---|
-| 0 % | -18,0 | -18,0 | -6,8 |
-| 25 % | -8,1 | -8,1 | -0,3 |
-| 50 % | -3,0 | -3,0 | -0,3 |
-| 75 % | -2,1 | -2,1 | -0,3 |
-| 100 % | -2,0 | -2,0 | -0,3 |
+| 0 % | -18,0 | -18,0 | -7,1 |
+| 25 % | -13,0 | -13,0 | -2,3 |
+| 50 % | -8,1 | -8,1 | -0,3 |
+| 75 % | -4,5 | -4,6 | -0,3 |
+| 100 % | -2,9 | -3,1 | -0,3 |
 
-Le niveau monte d'environ 16 dB sur cette matière : comme un clipper classique, le volume augmente avec le drive. Baisse le fader de la piste ou utilise MIX si tu veux garder le même volume.
+Le niveau monte d'environ 15 dB sur cette matière : comme un clipper classique, le volume augmente avec le drive. Baisse le fader de la piste ou utilise MIX si tu veux garder le même volume.
 
 ## Compiler (GitHub Actions)
 1. Pousse ce dossier sur GitHub.

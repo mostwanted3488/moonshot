@@ -7,11 +7,11 @@ namespace moonshot
 {
 enum class Mode { hard = 0, soft = 1 };
 
-// BUILD (0..1) -> drive in dB.  0% = unity, 100% = +40 dB.
+// BUILD (0..1) -> drive in dB.  0% = unity, 100% = +20 dB.
 inline float buildToDriveDb (float build) noexcept
 {
     build = juce::jlimit (0.0f, 1.0f, build);
-    return 40.0f * build;
+    return 20.0f * build;
 }
 
 // Pure transfer curves. u is the signal AFTER the drive gain.
