@@ -18,9 +18,9 @@ Un seul knob **BUILD** pousse le signal dans un clipper ; à 100 % la planète e
 | BUILD | RMS HARD | RMS SOFT | Crête |
 |---|---|---|---|
 | 0 % | -18,0 | -18,0 | -7,1 |
-| 25 % | -13,0 | -13,0 | -2,3 |
+| 20 % | -14,0 | -14,0 | -3,1 |
 | 50 % | -8,1 | -8,1 | -0,3 |
-| 75 % | -4,5 | -4,6 | -0,3 |
+| 80 % | -4,1 | -4,3 | -0,3 |
 | 100 % | -2,9 | -3,1 | -0,3 |
 
 Le niveau monte d'environ 15 dB sur cette matière : comme un clipper classique, le volume augmente avec le drive. Baisse le fader de la piste ou utilise MIX si tu veux garder le même volume.
